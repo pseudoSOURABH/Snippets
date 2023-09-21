@@ -1,1 +1,128 @@
 
+Bit Manipulation Techniques:
+Binary AND 
+Binary OR
+Binary XOR
+Binary One's Complement ~
+Binary Left Shift <<
+Binary Right Shift >>
+
+AND:
+0 &  = 0 
+1 & 0 =0 
+1&1 = 0 
+
+OR:
+0 | 0 =0 
+rest 1
+
+XOR:
+same bit =0
+different bit=1
+
+Binary Not 
+~0 =1
+~5 = ~000101= 111010
+
+int a=0;
+cout<<~a;
+it will print -1
+0=0000000000000
+and ~= 11111111111
+MSB is 32th place and that is one , it shows number will
+be negative
+magnitude will be 
+00000000000 and 1 ll be added 
+00000000001 =1 and sign is negative as MSB is 1
+result ll become -1
+
+*Binary Leftshift:
+5<<2
+00101
+-> 0010100
+-> <<n by means multiplying by 2^n . 
+
+* Binary Right Shift 
+000001100 >> 2
+-> 0000011
+a>>b means diving a by 2^b
+
+* Odd and Even 
+n%2 ==0 
+even 
+else 
+odd 
+
+* check ith bit 
+int getIthBit(int n,int i)
+{ 
+   int mask =(1<<i);
+    return (n&mask) > 1 ? 1 : 0;
+}
+* set ith bit
+
+void SetIthBit(int n,int i)
+{
+   int mask=(1<<i);
+   return (n | mask);
+}
+
+* Clear ith bit 
+void ClearIthBit(int n,int i)
+{
+   int mask = (1 << i);
+   mask= ~mask;
+  return (mask&n);
+}
+*update ith bit
+void UpdateIthBit(int &n , int i , int v)
+{
+   ClearIthBit(n,i);
+   int mask= (v<<i);
+   return (n | mask);
+}
+
+* clear last i bits : 
+11110101 and i=5 ,then remove 10101 
+result ll be 111
+
+for a number 11110101 ,mask should be 11100000
+
+void ClearLastIBits(int &n , int i)
+{
+int mask= (-1 << i);
+n = n & mask;
+return n;
+}
+
+* clear range of bits :
+-> clear bits in range i - j
+111010101110
+     i    j
+mask = 111110000001
+            i    j
+we have to make 111110000000 and 000000000001 
+mask a: (-1 << j+1)
+mask b: all the numbers which has consecutive 1 in last are
+in the form of 2^N -1 
+2^N - 1 = (1<<N)-1
+final mask = a | b;
+
+void ClearRangeBits(int &n, int i){
+ int mask_a=(-1 << j+1);
+int mask_b= (1<<i)-1;
+int mask=mask_a | mask_b;
+n= n & mask;
+}
+
+
+
+
+
+   
+    
+    
+ 
+
+
+ 
