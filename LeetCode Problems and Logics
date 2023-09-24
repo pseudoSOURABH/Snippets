@@ -104,3 +104,34 @@ void solve(int col ,vector<string>& board , vector<vector<string>> &ans , int n)
 
     }
 };
+
+Q. Longest valid paranthisis
+int longestValidParentheses(string s) {
+        
+
+        int t=0,ans=0;
+
+        stack<int>st;
+        st.push(-1);
+
+        for(auto i:s)
+        {
+            if(i == '(')
+            st.push(t);
+
+            else{
+
+                 if( !st.empty() && st.top() != -1 && s[st.top()] == '(')
+                {
+                    st.pop();
+                    ans=max(ans,t-st.top());
+                }
+                else
+                st.push(t);
+            }
+            t++;
+
+        }
+        return ans;
+
+    }
