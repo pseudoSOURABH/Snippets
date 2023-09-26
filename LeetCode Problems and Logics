@@ -135,7 +135,8 @@ int longestValidParentheses(string s) {
         return ans;
 
     }
-Q Given a sorted integer array nums and an integer n, add/patch elements to the array such that any number in the range [1, n] inclusive can be formed by the sum of some elements in the array.
+Q Given a sorted integer array nums and an integer n, add/patch elements to the array such that any number in the range [1, n] 
+inclusive can be formed by the sum of some elements in the array.
 
 Return the minimum number of patches required.
 
@@ -159,4 +160,48 @@ Output: 1
             }
         }
         return cnt;
+    }
+
+
+Q. Given a sorted integer array nums and an integer n, add/patch elements to the array such that any number in the range [1, n] inclusive can be formed by the sum of some elements in the array.
+
+Return the minimum number of patches required.
+
+int sumOfFlooredPairs(vector<int>& nums) {
+	vector<long> freq(2*MAXN+1);        
+	long mx = 0, sum = 0;
+	for(auto num : nums) ++freq[num], mx = max((int)mx, num);  // counting frequency of each element in nums
+	for(int i = 1; i <= 2*MAXN; ++i) freq[i] += freq[i - 1];   // building prefix sum array of freq. Now freq[i] will hold the frequency of numbers less than or equal to i
+	// Each num will be assumed in the denominator as floor(nums[i] / num) and 
+	// using freq array, we can calculate the number of terms contributing 1, 2, 3... to the sum each.
+	for(auto num : nums) { 
+		long l = num, r = 2 * num - 1, divResult = 1;
+		while(l <= mx) {                
+			sum = (sum + divResult * (freq[r] - freq[l - 1])) % MOD;
+			l += num, r += num;
+			++divResult;
+		}
+	}
+	return sum;
+}
+
+ANother Approach :
+
+    int sumOfFlooredPairs(vector<int>& A) {
+        long mod = 1e9 + 7, N = A.size(), ans = 0;
+        sort(begin(A), end(A));
+        for (int i = 0; i < N; ) {
+            long j = i + 1;
+            while (j < N && A[j] == A[j - 1]) ++j; // skip the duplicates of `A[i]`
+            long dup = j - i;
+            ans = (ans + dup * dup % mod) % mod; // the `dup` duplicates add `dup * dup` to the answer
+            while (j < N) {
+                long div = A[j] / A[i], bound = A[i] * (div + 1);
+                long next = lower_bound(begin(A) + j, end(A), bound) - begin(A); // find the first number `A[next] >= A[i] * (div + 1)`
+                ans = (ans + (next - j) * div % mod * dup % mod) % mod; // Each A[t] (j <= t < next) will add `div * dup` to the answer.
+                j = next;
+            }
+            i += dup;
+        }
+        return ans;
     }
