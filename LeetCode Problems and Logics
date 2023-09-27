@@ -245,3 +245,180 @@ public:
         return low;
     }
 };
+
+Q Given two arrays arr1 and arr2 . merge them without using extra space. arr1 ll contain first n elements and arr2 ll contain 
+m elements . 
+
+       class Solution{
+    public:
+        //Function to merge the arrays.
+        void merge(long long arr1[], long long arr2[], int n, int m) 
+        { 
+            // code here 
+             
+             int f=n-1,s=0;
+             
+             while(s<m && f>=0)
+             {
+                 if(arr1[f]>arr2[s])
+                 {
+                     swap(arr1[f],arr2[s]);
+                     f--;
+                     s++;
+                 }
+                 else
+                 break;
+             }
+             sort(arr1,arr1+n);
+             sort(arr2,arr2+m);
+            
+        } 
+};
+
+Q. Given an array arranged in curcuilar fasion . your task is to find max contigeous subarray sum . 
+
+class Solution{
+    public:
+    // arr: input array
+    // num: size of array
+    //Function to find maximum circular subarray sum.
+    int circularSubarraySum(int arr[], int num){
+        
+        // your code here
+        
+          int total = 0, maxSum = arr[0], currMax = 0, minSum = arr[0], currMin = 0;
+        for (int i=0;i<num;i++)
+        {
+            
+            if(arr[i]>currMax+arr[i])
+            currMax=arr[i];
+            else currMax=currMax+arr[i];
+            
+            if(maxSum<currMax)
+            maxSum=currMax;
+          
+            if(arr[i]<currMin+arr[i])
+            currMin=arr[i];
+            else currMin=currMin+arr[i];
+            
+            if(minSum>currMin)
+            minSum=currMin;
+           
+            total=total+arr[i];
+        }
+        
+     if(maxSum>0)
+     {
+         if(maxSum>total-minSum)
+         return maxSum;
+         else return(total-minSum);
+     }
+     else return maxSum;
+    }
+};
+
+Q. you have N books each with A[i] pages . M students need to allocated contigeous books , with each students need to get 
+allocated atleast a book .Find the permutation where the student with most no of books allocated to him gets least no of pages . 
+N =4 , arr=[12,34,68,90]
+o/p: 113 
+//User function template in C++
+
+class Solution 
+
+{
+
+    public:
+    //Function to find minimum number of pages.
+    bool helper(int books[],int n,int m,long long int x){
+    long long sum=0;
+    int part=1;
+   for(int i=0;i<n;i++){
+      if(books[i]>x) return false;
+      if(sum+books[i]<=x){
+       sum+=books[i];
+       }
+       else{
+       part++;
+       sum=books[i];
+      if(part>m) return false;
+       }
+        }
+ return true;
+    }
+    //Function to find minimum number of pages.
+    int findPages(int A[], int N, int M) 
+    {
+    if(N<M) return -1;
+    long long int ans=int(1e15);
+    long long  low=0;
+    long long high=0;
+    long long sum=0;
+    for(int i=0;i<N;i++){
+      sum+=A[i];
+    }
+    high=sum;
+    //sort(A,A+N);
+     while(low<=high){
+        long long mid=(low+high)/2;
+       if(helper(A,N,M,mid)){
+       ans=ans<mid?ans:mid;
+        high=mid-1;
+        }
+       else{
+         low=mid+1;
+      }
+      }
+        
+     return ans;  
+    }
+};
+
+Q Given an integer array nums and integer k . task is to check if nums can be divided into k non-empty sub-sets with equal sum .
+nums:2,1,4,5,6
+o/p: 2,4  1,5 6 means yes 
+
+/*You are required to complete this method */
+
+class Solution{
+  public:
+  bool func(int nums[],int i,int n,int k,vector<int> &us){
+       if(!k){
+           //cout<<"\n";
+           return 1;
+       }
+       if(i==n) return 0;
+       for(int j=i;j<n;j++){
+           if(us[j] or nums[j]>k) continue;
+           if(func(nums,j+1,n,k-nums[j],us)){
+               us[j]++;
+               //cout<<nums[j]<<" ";
+               return 1;
+           }
+       }
+       return 0;
+   }
+   bool isKPartitionPossible(int a[], int n, int k)
+   {
+        //Your code here
+        vector<int> us(n,0);
+        int s=0,b;
+        sort(a,a+n,greater<int>());
+        for(int i=0;i<n;i++) s+=a[i];
+        if(s%k) return false;
+        b=func(a,0,n,s/k,us);
+        int c=0;
+        while(b){
+            c++;
+            b=func(a,0,n,s/k,us);
+        }
+        if(c==k) return true;
+        return false;
+   }
+
+};
+
+Q . Given matrix m . find the max are rectangle created by 1's . 
+
+
+
+
