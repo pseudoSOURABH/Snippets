@@ -418,6 +418,233 @@ class Solution{
 };
 
 Q . Given matrix m . find the max are rectangle created by 1's . 
+/*You are required to complete this method*/
+
+class Solution{
+  public:
+  int maxAreaHist(vector<int> arr, int n) {
+        stack<int> s;
+        
+        long long maxArea = 0;
+        
+        for(int i = 0; i <= n; i++) {
+            while(!s.empty() and(i == n or arr[s.top()] >= arr[i])) {
+                long long height = arr[s.top()];
+                s.pop();
+                long long width;
+                if(s.empty() == true) {
+                    width = i;
+                } else {
+                    width =  i - s.top() - 1;
+                }
+                
+                maxArea = max(maxArea, height*width);
+            }
+            s.push(i);
+        }
+        
+        return maxArea;
+    }
+    int maxArea(int M[MAX][MAX], int n, int m) {
+        // Your code here
+        vector<int> height(m);
+        
+        for(int j = 0; j < m; j++) {
+            height[j] = (M[0][j]);
+        }
+        
+        int area = maxAreaHist(height, m);
+        
+        
+        
+        for(int i = 1; i < n; i++) {
+            int local = 0;
+            for(int j = 0; j < m; j++) {
+                if(M[i][j] == 0) {
+                    height[j] = 0;
+                } else {
+                    height[j] +=  1;
+                }
+            }
+            
+            
+            local = maxAreaHist(height, m);
+            
+            area = max(area, local);
+        }
+        
+        return area;
+       
+    }
+};
+
+Q  In stock market , a perosn buy a stock and sell it on some other day . person can do max k transaction . return the max 
+profit he can bring out of market . 
+class Solution {
+  public:
+  int f(int ind,int buy,int cap,int n,int a[],vector<vector<vector<int>>>&dp)
+  {
+      if(ind==n)
+      return 0;
+      
+      if(cap==0)
+      return 0;
+      if(dp[ind][buy][cap]!=-1)
+      return dp[ind][buy][cap];
+      int profit=0;
+      if(buy==1)
+      {
+          profit= max(f(ind+1,0,cap,n,a,dp)-a[ind],f(ind+1,1,cap,n,a,dp));
+      }
+      
+      else{
+           profit=max(f(ind+1,1,cap-1,n,a,dp)+a[ind],f(ind+1,0,cap,n,a,dp));
+      }
+    return   dp[ind][buy][cap]=profit;
+  }
+    int maxProfit(int K, int N, int A[]) {
+        // code here
+        vector<vector<vector<int>>>dp(N,vector<vector<int>>(2,vector<int>(K+1,-1)));
+        return f(0,1,K,N,A,dp);
+    }
+};
+
+better approach :
+class Solution {
+  public:
+
+
+ 
+
+int solve(int i,int n,int prices[],int buys,int k,vector<vector<vector<int>>> &dp){
+       if(i==n or k==0){
+           return 0;
+       }
+       if(dp[i][buys][k]!=-1) return dp[i][buys][k];
+       int profit=0;
+       
+       if(buys){
+           profit=max(-prices[i]+solve(i+1,n,prices,0,k,dp),0+solve(i+1,n,prices,1,k,dp));
+       }
+       else{
+           profit=max(prices[i]+solve(i+1,n,prices,1,k-1,dp),0+solve(i+1,n,prices,0,k,dp));
+       }
+       return dp[i][buys][k]=profit;
+   }
+   int maxProfit(int k, int n, int a[]) {
+       vector<vector<vector<int>>> dp(n,vector<vector<int>>(2,vector<int>(k+1,-1)));
+       return solve(0,n,a,1,k,dp);
+   }
+    
+};
+Best Approach:
+
+class Solution {
+  public:
+    int maxProfit(int k, int n, int p[]) {
+        // code here
+       int c=k*2;
+       vector<int> dp(c+1,0);
+       for(int i=n-1;i>=0;i--){
+           for(int j=c-1;j>=0;j--){
+               if(j%2) dp[j]=max(p[i]+dp[j+1],dp[j]);
+               else dp[j]=max(dp[j+1]-p[i],dp[j]);
+           }
+       }
+       return dp[0];
+    }
+    
+}
+
+Q Given a sqr grid of size N . each cell of which contains integer cost which is cost to travel through that
+cell . we have to from (0,0) to (n-1,n-1). return the min cost path to reach there . 
+
+
+class Solution
+{
+    public:
+    //Function to return the minimum cost to react at bottom
+	//right cell from top left cell.
+ 
+        // Code here
+          int dx[4]={0,0,1,-1};
+    int dy[4]={-1,1,0,0};
+
+    int minimumCostPath(vector<vector<int>>& grid) 
+    {
+        int n=grid.size();
+        vector<vector<int>> dp(n,vector<int>(n,INT_MAX));
+        //create min heap
+        priority_queue <pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>> > st;  
+        st.push({grid[0][0],{0,0}});
+        dp[0][0]=grid[0][0];
+        while(!st.empty())
+        {
+            
+            auto ele=st.top();
+            st.pop();
+            int dis=ele.first;
+            int x=ele.second.first;
+            int y=ele.second.second;
+            
+            for(int i=0;i<4;i++)
+            {
+                int newx=x+dx[i];
+                int newy=y+dy[i];
+                if(newx>=0 && newx<n && newy>=0 && newy<n)
+                {
+                    if(dp[newx][newy]>dis+grid[newx][newy])
+                    {
+                        dp[newx][newy]=dis+grid[newx][newy];
+                        st.push({dp[newx][newy],{newx,newy}});
+                    }
+                }
+            }
+        }
+        
+        return dp[n-1][n-1];
+    }
+};
+
+Q. Given two string wild and pattern where wild string may contain wild card character and pattern string is a 
+normal string . determine if the two strings match .following are the allowed wild card characters . 
+* this can be replaced by any sequence or empty string . 
+? this char in string wild can be replaced by any one character . 
+// User function template for C++
+class Solution{
+    public:
+    int t[1001][1001] ;
+    int match(string wild, string patt , int i , int j){
+        if(i < 0 && j < 0){
+            return 1 ;
+        }
+        if(i< 0 || j<0){
+            return 0 ;
+        }
+        if(t[i][j] != -1){
+            return t[i][j] ;
+        }
+        if(wild[i] == patt[j]){
+            return t[i][j] = match(wild , patt , i-1,j-1);
+        }
+        if(wild[i] == '?'){
+            return t[i][j] = match(wild , patt , i-1,j-1) ; 
+        }
+        if(wild[i] == '*'){
+        return t[i][j] = match(wild ,patt ,i-1,j) || match(wild,patt,i-1,j-1) ||match(wild,patt,i,j-1) ;
+        }
+        return 0 ; // CASE WHERE wild[i] != patt[j] 
+        
+    }
+    bool match(string wild, string patt)
+    {
+        // code here
+        int n = wild.size() , m = patt.size() ;
+        memset(t,-1,sizeof(t)) ;
+        return match(wild , patt , n-1 , m-1) ;
+    }
+};
+
 
 
 
