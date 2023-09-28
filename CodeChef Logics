@@ -1,1 +1,90 @@
+Q. you have N stones and k colors .this you can do in k^n ways . but if |j-i|<k , then color of stone can't be same . 
+#include <iostream>
+using namespace std;
 
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    const unsigned int M = 1000000007;
+	    int n;
+	    int k;
+	    cin>>n>>k;
+	    
+	    
+    	    unsigned long long int count = 1;
+    	   // if(k==n)
+    	   // cout<<k<<endl;
+    	   // else 
+    	   // {
+        	    for(int i=0;i<n;i++)
+        	    {
+        	        if(k>0)
+        	       { 
+        	           count=(k*count)%M;
+        	           k--;
+        	       }
+        	        else
+        	        break;
+        	    }
+        	 cout<<count<<endl;
+    	   // }
+        	 
+	    
+	}
+	return 0;
+}
+Q
+chef has an array arr . he wantes to find min no of deletions from the array so that in resulting array res :
+arr[i] xor arr[j] <=1 
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    int n;
+    cin>>n;
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    
+    unordered_map<int,int>mp;
+    for(auto it:arr)
+    mp[it]++;
+    
+    int count=0;
+    
+    for(auto it:mp)
+    {
+       int first=it.first;
+       int second=it.first-1;
+       int xr=first ^ second ;
+       if(xr<=1)
+       {
+              
+       if(mp.find(first) != mp.end())
+       {
+           if(mp.find(second)!= mp.end())
+           count=max(count , abs(mp[first]+ mp[second]));
+       }
+       }
+       count=max(count,it.second);
+    }
+    cout<<n-count<<endl;
+    
+    
+}
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	
+	while(t--)
+	solve();
+	return 0;
+}
