@@ -645,7 +645,62 @@ class Solution{
     }
 };
 
-Q. 
+Q. Longest Cycle in a Graph 
+const int N=1e5+5;
+vector<int>g[N];
+vector<int>height(N);
+
+const int AN=1;
+const int EN=2;
+
+
+class Solution {
+    private:
+    void dfs(int src, int depth , vector<int>&visited, int &
+     longest_cycle
+    ){
+        if(visited[src] == AN)
+        {
+            longest_cycle = max(longest_cycle, depth-height[src]);
+            return ;
+        }
+        if(visited[src]== EN)
+        return ;
+
+        visited[src]=AN;
+        height[src]=depth;
+
+        for(auto it:g[src])
+        {
+            dfs(it , depth+1 , visited , longest_cycle );
+        }
+
+        visited[src]=EN;
+
+    }
+public:
+    int longestCycle(vector<int>& edges) {
+        int n=edges.size();
+        for(int i=0;i<n;i++)
+        {
+            if(edges[i] != -1)
+            g[i].push_back(edges[i]);
+        }
+
+        int res=-1;
+
+        vector<int>visited(n,false);
+        for(int i=0;i<n;i++)
+        dfs(i,1,visited,res);
+
+        for(int i=0;i<n;i++)
+        {
+            height[i]=0;
+            g[i].clear();
+        }
+        return res;
+    }
+};
 
 
 
