@@ -702,5 +702,72 @@ public:
     }
 };
 
+Q. Number of Excellent pairs:count no of pairs where
+set bits in
+num1 AND num2 + num1 OR num2 >=k
+
+typedef long long ll;
+class Solution {
+    private:
+    int BitCount(int x)
+    {
+        int ans=0;
+        for(int j=29;j>=0;j--)
+        {
+            if( (1<<j) & x)
+            ans++;
+        }
+        return ans;
+    }
+
+public:
+    long long countExcellentPairs(vector<int>& nums, int k) {
+
+        set<int>uniq;
+
+        for(auto i:nums)
+        uniq.insert(i);
+
+        vector<int>bits;
+        for(auto i:uniq)
+        {
+            int cnt = BitCount(i);
+            bits.push_back(cnt);
+        }
+        sort(bits.begin(), bits.end());
+
+        int n=bits.size();
+        int l=0,r=n-1;
+
+        ll result =0;
+
+        while(l<n && r>=0)
+        {
+            if(bits[l] + bits[r] < k)
+            l++;
+            else{
+                result+=(n-l);
+                r--;
+            }
+        }
+        return result;
+        
+    }
+};
+
+here, set bits in num1 & num2 + num1 or num2 is equivalent 
+to total set bits in num1 + total set bits in num2 . 
+simply check how many pairs are there which has total no of
+set bits >=k
+
+
+Q. Shortest Impossible Sequence 
+See, there is a dice which is rolled n times and it has
+k numbers . we have to find shortest length sequence that is 
+impossile to make by the given sequence of rolls.
+rolls = [4,2,1,2,3,3,2,4,1], k = 4
+Output: 3
+
+
 
 
