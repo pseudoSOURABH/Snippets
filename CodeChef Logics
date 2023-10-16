@@ -361,5 +361,43 @@ int main() {
 	return 0;
 }
 
+Q. we have to find such numbers which are perfact square in the given range and also all the digits such numbers
+consist are perfect itself . 
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long 
+#define pb push_back
+#define vi vector<int>
+#define loop(i,z,n) for(int i=z; i<n; i++)
+#define ll cout << endl
+#define SpeedIsAllYouNeed ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+// If the number is perfect digit or not
+bool isDigit(int n) {
+    string s = to_string(n);
+    loop(i,0,s.size()) {
+        if(s[i]=='0' or s[i]=='1' or s[i]=='4' or s[i]=='9') continue;
+        return false;
+    }
+    return true;
+}
+
+int32_t main() {
+    SpeedIsAllYouNeed;
+	int t; cin >> t;
+    
+    // All the perfect digits that are in between 1 and 1E10
+    vi v;
+    loop(i,1,1E5+9) 
+        if(isDigit(i*i)) v.pb(i*i);
+        
+	while(t--) {
+	    int n,m; cin >> n >> m;
+	    
+	    cout << lower_bound(v.begin(), v.end(), m+1) - lower_bound(v.begin(), v.end(), n) << endl; // Getting required segment
+	}
+	return 0;
+}
 
 
