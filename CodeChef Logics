@@ -88,3 +88,101 @@ int main() {
 	solve();
 	return 0;
 }
+
+
+Q . A grid of n*m dim. grid[i][j] =i+j . 
+Now, Greg wants to select some cells from the grid, such that for every pair of selected cells ,the numbers on the cells are co-prime. Determine the maximum number of cells that Greg can select.
+
+The given code is a program that counts the number of prime numbers in the range [2, n+m].
+
+Explanation:
+
+The expo function calculates the logarithm base 2 of the input number n. It counts the number of times n can be divided by 2 until it becomes 0, which gives the exponent of the highest power of 2 that divides n. The result is returned as count.
+
+The power function recursively calculates the power of x raised to y. It uses the divide-and-conquer technique to reduce the number of multiplications required. If y is even, it recursively calculates temp as power(x, y/2) and returns temptemp. Otherwise, it calculates temp as power(x, y/2) and returns xtemp*temp.
+
+The solve function is the main logic of the program. It takes two inputs n and m and initializes a variable s to a large value (1e7+5) as the sieve size. An array prime is declared to store the sieve of Eratosthenes, where prime[i] is 1 if i is prime and -1 if i is composite.
+
+The program uses the sieve of Eratosthenes to mark all the prime numbers up to s. It iterates from 2 to the square root of s and marks all multiples of each prime number as composite.
+
+After building the sieve, the program counts the number of primes in the range [2, n+m] by iterating from 2 to n+m and incrementing ans whenever a prime number is encountered.
+
+Finally, the program prints the value of ans, which represents the count of prime numbers in the range [2, n+m].
+
+Overall, the code efficiently utilizes the sieve of Eratosthenes algorithm to compute the count of prime numbers in the given range.
+
+
+#include <iostream>
+#define ll long long 
+#include<bits/stdc++.h>
+using namespace std;
+
+int expo(ll int  a)
+{
+    int x=2;
+    
+    int count=0;
+    
+    
+    while(a/x != 0)
+    {
+        a/=x;
+        count++;
+    }
+    return count;
+}
+
+ll int power(ll a,ll b)
+{
+    ll int temp;
+    
+    if(b == 0)
+    return 1; 
+    temp=power(a,b/2);
+    
+    if(b%2 == 0)
+    return temp*temp;
+    
+    else 
+    return a * temp * temp;
+    
+}
+
+ void solve()
+ {
+     ll int n,m;
+     cin>>n>>m;
+     
+     ll int s=1e7+5;
+     
+     ll int prime[s];
+     
+     for(ll int i=0;i<s;i++)
+     prime[i]=0;
+     
+     for(ll int i=2;i<s;i++)
+     {
+         if(prime[i] == 0)
+         {
+             prime[i]=1;
+             ll int j=2*i;
+             
+             while(j<s)
+             {
+                 prime[j]=-1;
+                 j+=i;
+             }
+         }
+     }
+     ll int ans=0;
+     for(int i=2;i<=n+m;i++){
+         if(prime[i] == 1)
+         ans++;
+     }
+     cout<<ans<<endl;
+ }
+int main() {
+	// your code goes here
+	solve();
+	return 0;
+}
