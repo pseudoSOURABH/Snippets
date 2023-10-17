@@ -400,4 +400,50 @@ int32_t main() {
 	return 0;
 }
 
+Q. string given , some chars are '?' , find no of ways to replace '?' with any other char and make the string 
+palindrome  . 
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long 
+#define pb push_back
+#define vi vector<int>
+#define loop(i, n) for(int i=0; i<n; i++)
+#define ll cout << endl
+#define SpeedIsAllYouNeed ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+const int mod = 10000009; 
+int32_t main() {
+    SpeedIsAllYouNeed;
+	int t; cin >> t;
+	while(t--) {
+	    string s; cin >> s;
+
+        // Counting the possibilities of the characters
+	    bool flag = true;
+        int st=0, end=s.size()-1, count = 1;
+        while(st<end) {
+            if(s[st]=='?' and s[end]=='?') 
+                count = (count*26)%mod;
+            else if(s[st]!=s[end] and s[st]!='?' and s[end]!='?') {
+                flag = false;
+                break;
+            }
+            st++;end--;
+        }
+	    
+	   // If palindrome isn't possible
+	    if(flag==false) {
+	        cout << 0 << endl;
+	        continue;
+	    }
+	    
+	   // For odd size of string, the middle value could be anything if is '?'
+	    if(s.size()%2!=0 and s[s.size()/2]=='?') count = (count*26)%mod;
+	    
+	    cout << count << endl;
+	}
+	return 0;
+}
+
 
