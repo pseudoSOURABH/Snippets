@@ -506,4 +506,28 @@ int32_t main() {
 	return 0;
 }
 
+Q .Formally, you have to tell whether you can distribute first N natural numbers in two sets such that the absolute difference of
+the sum of numbers in the two sets is equal to M and the gcd of their sum is 1.
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        ll n,m;
+        cin>>n>>m;
+        ll sum=n*(n+1)/2;
+        if((sum+m)%2==0){
+            ll a=(sum+m)/2;
+            ll b=abs(sum-a);
+            if(__gcd(a,b)==1)cout<<"Yes"<<endl;
+            else cout<<"No"<<endl;
+        }
+        else cout<<"No"<<endl;
+    }
+	return 0;
+}
+
 
