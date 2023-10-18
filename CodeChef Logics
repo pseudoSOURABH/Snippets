@@ -530,4 +530,77 @@ int main() {
 	return 0;
 }
 
+Q. Given array of string and it . these are recipe and its priority  . given q queries . print recipe with highest 
+priority which matches with the query string . 
+/*  Time: 6:57 AM
+    Date: 2 SEP 2023   */
+#include <bits/stdc++.h>
+#define ll long long int
+using namespace std;
 
+bool cmp(pair<string,int>& x, pair<string,int>& y){
+    return x.second > y.second;
+}
+
+bool find(string& s1, string& s){
+    int n=s.length();
+    
+    for(int i=0;i<n;i++){
+        if(s1[i]!=s[i]) return false;
+    }
+    return true;
+}
+
+int main() {
+	int n,q;
+	cin>>n;
+	
+	vector<pair<string,int>> v(n);
+	
+	for(int i=0;i<n;i++)
+	    cin>>v[i].first>>v[i].second;
+	    
+	 sort(v.begin(),v.end(),cmp);
+	 
+	 cin>>q;
+	 while(q--){
+	     string s;
+	     cin>>s;
+	     int flag=0;
+	     for(int i=0;i<n;i++){
+	         if(find(v[i].first,s)){
+	             cout<<v[i].first<<endl;
+	             flag=1;
+	             break;
+	         }
+	     }
+	     if(flag==0)    cout<<"NO\n";
+	 }
+	return 0;
+}
+Q. Prefix Permutation : 
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t>0){
+	    int k,n;
+	    cin>>k>>n;
+	    int a[n];
+	    for(int i=0;i<n;i++)cin>>a[i];
+	    int x=0;
+	    for(int i=0;i<n;i++){
+	        for(int j=a[i];j>x;j--)
+	        cout<<j<<" ";
+	        x=a[i];
+	    }
+	    cout<<endl;
+	    t--;
+	   // x=a[i];
+	    
+	}
+	return 0;
+}
