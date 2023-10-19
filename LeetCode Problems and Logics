@@ -802,3 +802,44 @@ public:
     }
 };
 
+Q. BackSpace String Compare : if there are '#' in string , then remove the '#' along with its previous char if there is one and check if given two 
+string are equal or not after these operations. 
+class Solution {
+    private:
+    int next_char(string str,int curr)
+    {
+        while(curr > -1 && str[curr]== '#')
+        {
+            int cnt=1;
+            curr--;
+
+            while(curr >-1 && cnt > 0)
+            {
+                if(str[curr] == '#')
+                cnt++;
+
+                else
+                cnt--;
+                
+                curr--;
+            }
+        }
+        return curr;
+    }
+public:
+    bool backspaceCompare(string s, string t) {
+        int i=next_char(s,s.length()-1);
+        int j=next_char(t,t.length()-1);
+
+        while( i>-1 && j>-1)
+        {
+            if(s[i] != t[j])
+            return false;
+            i=next_char(s,i-1);
+            j=next_char(t,j-1);
+
+        }
+        return i==-1 && j==-1;
+    }
+};
+
