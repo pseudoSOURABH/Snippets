@@ -1,0 +1,39 @@
+AWS platform has been  divided into these catogories:
+compute and networking 
+storage and CDN
+Databases 
+Application Services
+Deployment and Management 
+
+* Compute & Networking services
+AMAZON EC2 supports
+RHEL
+CentOS
+Ubuntu
+Debian
+Dedora
+Amazon Linux
+Oracle Linux
+Microsoft Windows Servers
+
+AMAZON Route53
+AMAZON VPC
+
+* Storage & Content Delivery 
+Amazon S3
+Amazon Glacier(economical)
+Amazon CloudFront
+
+* Database
+MYSQL
+MS SQL SERVER
+Oracle 
+
+*Deployment and Management
+
+Amazon CloudWatch
+Amazon IAM(Identity and access management)
+
+* APP SERVICES:
+Amazon SES , like for bulk mailing 
+Amazon SNS, notification to email 
