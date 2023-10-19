@@ -1,1 +1,66 @@
+Data Defenition Language
+Create
+Alter 
+Drop
+Truncate
+
+Data Manipulation Language
+Select
+Update
+Insert
+Delete
+
+Data Control Language
+Grant
+Revoke
+
+Transaction Control Langauge
+Commit
+RollBack
+SafePoint
+
+--> create a table 
+Create Table Employee(
+Emp_id int,
+Emp_sal float,
+Emp_name varchar
+  );
+
+--> Insert Values
+INSERT INTO Employee values (2,2000,"JSON");
+-->INSERT INTO Employee (Emp_id,Emp_sal,Emp_name) VALUES (4,4000,"Balance");
+
+
+-->Alter Table 
+Alter Table Employee ADD Emp_add varchar;
+
+Alter Table Employee Drop COLUMN Emp_add
+
+-->Select Values
+select Emp_id,Emp_name from Employee
+
+SQL SELECT CONDITION STATEMENT
+select * from Employee where Emp_name="Alex";
+
+Update Employee SET Emp_name="Alexx" where Emp_name="Alex";
+
+Delete from Employee where Emp_name="Hales"
+
+
+SQL Data Control Statement 
+
+GRANT: 
+GRANT UPDATE ON Employee TO RAHUL;
+REVOKE
+REVOKE UPDATE,INSERT ON Employee FROM RAHUL;
+
+
+
+
+
+
+
+
+
+
 
