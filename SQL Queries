@@ -55,6 +55,8 @@ REVOKE
 REVOKE UPDATE,INSERT ON Employee FROM RAHUL;
 
 
+select Emp_id,Emp_name,Emp_sal,Emp_sal+ "10000" as New_Sal from Employee;
+
 
 
 
