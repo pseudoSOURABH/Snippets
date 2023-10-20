@@ -57,6 +57,42 @@ REVOKE UPDATE,INSERT ON Employee FROM RAHUL;
 
 select Emp_id,Emp_name,Emp_sal,Emp_sal+ "10000" as New_Sal from Employee;
 
+* Greater than Operator
+select * from Employee where id>1
+
+select * from Employee where Emp_sal<10000 and Emp_sal>100;
+
+* Between Operator:
+select * from Employee where Emp_sal between 1000 and 10000 
+
+* Not Operator
+
+select * from Employee where not Emp_sal =70000   
+
+* SQL Expressions : compossed one or more keywords . 
+
+Types of SQL Operations :
+1. Boolean 
+2. Numeric 
+3. Date
+
+select total_marks/2 from Students where total_marks/2 > 200;
+
+*Create DataBase
+CREATE DATABASE Project;
+show databases; 
+
+// for creating table ,you need to specify database
+use Project // Project database has been selected for operations 
+
+// Drop database
+DROP DATABASE Project;
+
+
+
+
+
+
 
 
 
