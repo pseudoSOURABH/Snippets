@@ -604,3 +604,162 @@ int main() {
 	}
 	return 0;
 }
+
+Q. Crying Colours codechef:
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	while(t--){
+	    int n;
+	    cin >> n;
+	    int arr[3][3];
+	    for (int i=0; i<3; i++){
+	        for (int j=0; j<3 ;j++){
+	            cin >> arr[i][j] ;
+	        }
+	    }
+	    
+	    int a=min (arr[1][0], arr[0][1]);
+	    int b=min (arr[2][0], arr[0][2]);
+	    int c=min (arr[2][1], arr[1][2]);
+	    int d=max (arr[2][1], arr[1][2]);
+	    int e=d-c ;
+	    
+	    int sum = a+b+c ;
+	    
+	    cout << sum + 2*(e) << endl; 
+	    
+	    
+	    
+	    
+	    
+	    
+	}
+	return 0;
+}
+
+Q. Codechef Bitplay
+#include <iostream>
+using namespace std;
+#define ll long long 
+#include<bits/stdc++.h>
+
+const int mod=1e9+7;
+void solve(){
+    int n;
+    cin>>n; 
+    string s;
+    cin>>s;
+    
+    vector<ll>symbol;
+    
+    for(int i=3;i<=n;i+=2)
+    {
+        char bit=s[i-1];
+        char bit1=s[i-3];
+        char bit2=s[i-2];
+        
+        if(bit1 != bit2)
+        {
+            if(bit != '1')
+            symbol.push_back(1);
+            else
+            symbol.push_back(2);
+        }
+        
+        else if(bit1 == '1')
+        {
+            if(bit == '1')
+            {
+                symbol.push_back(2);
+                
+            }
+            else{
+                symbol.push_back(1);
+            }
+        }
+        else{
+            if(bit =='1')
+            symbol.push_back(0);
+            else
+            symbol.push_back(3);
+        }
+    }
+    ll tt=1;
+    
+    for(auto it:symbol)
+    {
+        tt=tt*it;
+        tt=tt  % mod;
+    }
+    cout<<tt<<endl;
+}
+
+int main() {
+	// your code goes here
+	
+	ll t;
+	cin>>t;
+	
+	while(t--)
+	solve();
+	return 0;
+}
+
+Q. Lexicographically Largest Codechef:
+
+#include <iostream>
+#include<bits/stdc++.h>
+#define ll long long 
+using namespace std;
+
+ll gcd(ll a,ll b)
+{
+    if(b == 0)
+    return a;
+    
+   return  gcd(b,a%b);
+}
+void solve(){
+    ll n,m;
+    cin>>n>>m;
+    
+    vector<ll>a(n);
+    
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    
+    vector<ll>ans=a;
+    
+    for(int i=1;i<n;i++)
+    {
+        ll d=a[i-1]/a[i];
+        int mx=m/a[i];
+        
+        while(gcd(mx,d)>1)
+        mx--;
+        
+        ans[i]=a[i]*mx;
+    }
+    	for (int i = 0; i < n; i++) {
+			cout << ans[i] << " \n"[i == n - 1];
+		}
+}
+
+int main() {
+	// your code goes here
+	
+	ll t;
+	cin>>t;
+	
+	while(t--)
+	solve();
+	return 0;
+}
+
+
+
