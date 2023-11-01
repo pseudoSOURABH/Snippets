@@ -818,5 +818,68 @@ int main()
 }
 
 
+Q. there are array of n elements . we have to count unstable subaarays . 
+which is . 
+f(l,r)=sumation of i=l to r-1 (arr[i]-arr[i+1]) 
+if f(l,r) != a[r] - a[l] then it is unstable 
+count the no of unstable such sub arrays . 
+
+
+
+#include <iostream>
+#define ll long long 
+#include<bits/stdc++.h>
+using namespace std;
+//summation , a[i]-a[i+1] 
+
+void solve()
+{
+    ll n;
+    cin>>n;
+    unordered_map<ll,ll>mp;
+    
+    vector<ll>arr(n);
+    
+    for(int i=0;i<n;i++){
+    cin>>arr[i];
+    mp[arr[i]]++;
+    }
+    
+  
+    
+    n=n * (n-1) / 2; 
+    
+    if(mp.size() != n)
+    {
+        ll c=0;
+        for(auto it: mp)
+        {
+            if(it.second > 1){
+                ll add=it.second ; 
+                add = add * (add - 1) / 2;
+                c+=add; 
+            }
+            
+        }n= n-c;
+    }
+    
+    cout<<n<<endl;
+    
+}
+
+int main() {
+	// your code goes here
+	ll t;
+	cin>>t;
+	
+	while(t--)
+	solve();
+	
+	
+	return 0;
+}
+
+
+
 
 
